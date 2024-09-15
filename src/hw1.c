@@ -11,7 +11,13 @@ Hint: Consider adding a global variable to store a string large enough to store 
 */
 
 void initialize_board(const char *initial_state, int num_rows, int num_cols) {
-
+    //xxx-o--xxo-x---------x-oxoxo-o
+    for (int j = 0; j < num_rows; j++); {
+        for (int i = 0; i < num_cols; i++) {
+            printf("%c ", initial_state[0]);
+        }
+        printf("\n");
+    }
 }
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {   
