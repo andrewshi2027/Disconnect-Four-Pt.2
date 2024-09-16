@@ -4,17 +4,18 @@
 
 #include "hw1.h"
 
-
 int main(int argc, char **argv) {
     assert(argc == 4); //verify that the number of command-line arguments is exactly what we are expecting
     initialize_board(argv[3], (int)strtoul(argv[1], NULL, 10), (int)strtoul(argv[2], NULL, 10));
-    
+
 	//WRITE YOUR CODE HERE
     //Variables
     char piece;
     int row, column; //user input
-    int num_rows = (int)strtoul(argv[1], NULL, 10);
-    int num_columns = (int)strtoul(argv[2], NULL, 10);
+    int num_rows = (int)strtoul(argv[1], NULL, 10); //number of rows
+    int num_columns = (int)strtoul(argv[2], NULL, 10); //number of columns
+    char board[] = argv[3]; //string to array
+    int length = strlen(board); //length of the array;
 
     //User Input for Piece
     while (1)
@@ -59,6 +60,18 @@ int main(int argc, char **argv) {
         else
         {
             printf("Invalid choice. ");
+        }
+    }
+
+    //Checks if invalid piece choice
+    int index = row * num_columns + column; // Calculate the index in the board array
+    while (1) {
+        if (piece != '-') {
+            printf("Invalid choice. That space is already occupied.\n");
+        }
+        else {
+            //Place piece in array
+            board[index] = piece;
         }
     }
 

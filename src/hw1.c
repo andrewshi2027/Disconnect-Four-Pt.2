@@ -11,6 +11,14 @@ Hint: Consider adding a global variable to store a string large enough to store 
 */
 
 void initialize_board(const char *initial_state, int num_rows, int num_cols) {
+
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; i < num_cols; j++) {
+            board[i][j] = initial_state[num_cols * i + j];
+        }
+    }
+    
+    
     //xxx-o--xxo-x---------x-oxoxo-o
     for (int j = 0; j < num_rows; j++); {
         for (int i = 0; i < num_cols; i++) {
@@ -18,6 +26,12 @@ void initialize_board(const char *initial_state, int num_rows, int num_cols) {
         }
         printf("\n");
     }
+
+    
+}
+
+int checkFour() {
+
 }
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {   
