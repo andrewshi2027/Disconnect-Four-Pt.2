@@ -14,8 +14,6 @@ int main(int argc, char **argv) {
     int row, column; //user input
     int num_rows = (int)strtoul(argv[1], NULL, 10); //number of rows
     int num_columns = (int)strtoul(argv[2], NULL, 10); //number of columns
-    char board[] = argv[3]; //string to array
-    int length = strlen(board); //length of the array;
 
     //User Input for Piece
     while (1)
@@ -71,7 +69,7 @@ int main(int argc, char **argv) {
         }
         else {
             //Place piece in array
-            board[index] = piece;
+            //board[row][column] = 
         }
     }
 
