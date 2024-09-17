@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
         }
         else {
             //Place piece in array
-            //board[row][column] = 
+            board[row][column] = piece;
         }
     }
 
