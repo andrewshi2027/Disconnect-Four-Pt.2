@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
 
     //Checks if invalid piece choice
     while (1) {
-        if (piece != '-') {
+        if (board[row][column] != '-') {
             printf("Invalid choice. That space is already occupied.\n");
         }
         else {
