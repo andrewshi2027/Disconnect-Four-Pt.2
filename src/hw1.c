@@ -26,6 +26,9 @@ int helper (char a, char b, char c, char d) {
 
 //Checks if there are any 4-in-a-rows in the board
 int checkFour(const char *initial_state, int num_rows, int num_cols) {
+    //Initialize Board
+    initialize_board(initial_state, num_rows, num_cols);
+
     //Check horizontal 4 in a row
     for (int i = 0; i < num_rows; i++) {
         for (int j = 0; i < num_cols - 4; j++) {
@@ -66,7 +69,19 @@ int checkFour(const char *initial_state, int num_rows, int num_cols) {
 }
 
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o) {   
+    //Initialize Board
+    initialize_board(initial_state, num_rows, num_cols);
 
+    //FOUND_SOLUTION
+    if (checkFour(initial_state, num_rows, num_cols) == 0) {
+        return FOUND_SOLUTION;
+    }
+
+    //HEURISTICS_FAILED 
+
+    //INITIAL_BOARD_FOUR_IN_A_ROW
+    //INITIAL_BOARD_INVALID_CHARACTERS
+    //INITIAL_BOARD_NO_SOLUTION
     return 0;
 }
 

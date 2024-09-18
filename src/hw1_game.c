@@ -9,6 +9,7 @@ int main(int argc, char **argv) {
     initialize_board(argv[3], (int)strtoul(argv[1], NULL, 10), (int)strtoul(argv[2], NULL, 10));
 
 	//WRITE YOUR CODE HERE
+
     //Variables
     char piece;
     int row, column; //user input
@@ -62,7 +63,6 @@ int main(int argc, char **argv) {
     }
 
     //Checks if invalid piece choice
-    int index = row * num_columns + column; // Calculate the index in the board array
     while (1) {
         if (piece != '-') {
             printf("Invalid choice. That space is already occupied.\n");
@@ -73,7 +73,37 @@ int main(int argc, char **argv) {
         }
     }
 
+    //Checks if there is a 4-in-a-row
+    while (1) {
+        if (checkFour(argv[3], num_rows, num_columns) == 1) {
+            printf("Invalid choice. You have created 4-in-a-row.\n");
+        }
+        else {
+            //Print Board
+            for (int i = 0; i < num_rows; i++)
+            {
+                for (int j = 0; j < num_columns; j++)
+                {
+                    printf("%c ", board[i][j]);
+                }
+                printf("\n");
+            }
+        }
+    }
 
+    //Checks if winning board
+    if (checkFour(argv[3], num_rows, num_columns) == 0) {
+        printf("Congratulations, you have filled the board with no 4-in-a-rows!\n");
+        //Print Board
+            for (int i = 0; i < num_rows; i++)
+            {
+                for (int j = 0; j < num_columns; j++)
+                {
+                    printf("%c ", board[i][j]);
+                }
+                printf("\n");
+            }
+    }
 
     return 0;
 }
