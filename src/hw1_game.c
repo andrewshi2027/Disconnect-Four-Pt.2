@@ -4,10 +4,15 @@
 
 #include "hw1.h"
 
+
+
+//void initialize_board(const char *initial_state, int num_rows, int num_cols);
+
 int main(int argc, char **argv) {
     assert(argc == 4); //verify that the number of command-line arguments is exactly what we are expecting
     initialize_board(argv[3], (int)strtoul(argv[1], NULL, 10), (int)strtoul(argv[2], NULL, 10));
-
+    //(void) argv;
+    //printf("hello"); 
 	//WRITE YOUR CODE HERE
 
     //Variables
@@ -16,69 +21,76 @@ int main(int argc, char **argv) {
     int num_rows = (int)strtoul(argv[1], NULL, 10); //number of rows
     int num_columns = (int)strtoul(argv[2], NULL, 10); //number of columns
 
-    //User Input for Piece
-    while (1)
+    while (1) 
     {
-        printf("Choose a piece (x or o) or q to quit: ");
-        scanf(" %c", &piece); //need space before %c
-        if (piece == 'x' || piece == 'o' || piece == 'q')
-        {
-            break;
+        //Print Board
+        for (int i = 0; i < num_rows; i++) {
+            for (int j = 0; j < num_columns; j++) {
+                printf("%c ", board[i][j]);
+            }
+            printf("\n");
         }
-        else
-        {
-            printf("Invalid choice. ");
+        
+        //User Input for Piece
+        while (1) {
+            printf("Choose a piece (x or o) or q to quit: ");
+            scanf(" %c", &piece); //need space before %c
+            if (piece == 'x' || piece == 'o' || piece == 'q') {
+                break;
+            }
+            else {
+                printf("Invalid choice. ");
+            }
         }
-    }
 
-    //User Input for Row
-    while (1)
-    {
-        printf("Choose a row (0-%d): ", num_rows - 1);
-        scanf("%d", &row);
-        if (row >= 0 && row < num_rows)
-        {
-            break;
+        //If user chose "q" (quit)
+        if (piece == 'q') {
+            return 0;
         }
-        else
-        {
-            printf("Invalid choice. ");
-        }
-    }
 
-    //User Input for Column
-    while (1)
-    {
-        printf("Choose a column (0-%d): ", num_columns - 1);
-        scanf("%d", &column);
 
-        if (column >= 0 && column < num_columns)
-        {
-            break;
+        //User Input for Row
+        while (1) {
+            printf("Choose a row (0-%d): ", num_rows - 1);
+            scanf("%d", &row);
+            if (row >= 0 && row < num_rows) {
+                break;
+            }
+            else {
+                printf("Invalid choice. ");
+            }
         }
-        else
-        {
-            printf("Invalid choice. ");
-        }
-    }
 
-    //Checks if invalid piece choice
-    while (1) {
+        //User Input for Column
+        while (1) {
+            printf("Choose a column (0-%d): ", num_columns - 1);
+            scanf("%d", &column);
+
+            if (column >= 0 && column < num_columns) {
+                break;
+            }
+            else {
+                printf("Invalid choice. ");
+            }
+        }
+
+        //Checks if invalid piece choice
         if (board[row][column] != '-') {
             printf("Invalid choice. That space is already occupied.\n");
         }
         else {
             //Place piece in array
-            board[row][column] = piece;
+            board[row][column] = piece;  
         }
-    }
-
-    //Checks if there is a 4-in-a-row
-    while (1) {
-        if (checkFour(argv[3], num_rows, num_columns) == 1) {
+        
+        
+        //Checks if there is a 4-in-a-row
+        if (checkFour(argv[3], num_rows, num_columns) == 1) 
+        {
             printf("Invalid choice. You have created 4-in-a-row.\n");
         }
-        else {
+        else
+        {
             //Print Board
             for (int i = 0; i < num_rows; i++)
             {
@@ -88,13 +100,15 @@ int main(int argc, char **argv) {
                 }
                 printf("\n");
             }
+            break;
         }
-    }
-
-    //Checks if winning board
-    if (checkFour(argv[3], num_rows, num_columns) == 0) {
-        printf("Congratulations, you have filled the board with no 4-in-a-rows!\n");
-        //Print Board
+        
+        
+        //Checks if winning board
+        if (checkFour(argv[3], num_rows, num_columns) == 0) 
+        {
+            printf("Congratulations, you have filled the board with no 4-in-a-rows!\n");
+            //Print Board
             for (int i = 0; i < num_rows; i++)
             {
                 for (int j = 0; j < num_columns; j++)
@@ -103,7 +117,10 @@ int main(int argc, char **argv) {
                 }
                 printf("\n");
             }
+            break;
+        }
+        
+        
     }
-
     return 0;
 }

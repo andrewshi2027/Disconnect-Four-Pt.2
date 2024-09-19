@@ -10,14 +10,20 @@ char board[MAX_ROWS][MAX_COLS] = {0};
 Hint: Consider adding a global variable to store a string large enough to store a board.
 */
 
-void initialize_board(const char *initial_state, int num_rows, int num_cols) {
-    //Convert String to Array
-    for (int i = 0; i < num_rows; i++) {
-        for (int j = 0; i < num_cols; j++) {
+ void initialize_board(const char *initial_state, int num_rows, int num_cols) {
+   //Convert String to Array
+    //int counter=0; 
+    for (int i=0; i<num_rows; i++)
+    {
+        for (int j=0; j<num_cols; j++)
+        {
             board[i][j] = initial_state[num_cols * i + j];
+            //counter++; 
         }
     }
-}
+ }
+
+
 
 //Helper method for checkFour()
 int helper (char a, char b, char c, char d) {
@@ -120,7 +126,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                     board[i][j] = 'x';
                     //If the x creates a 4-in-a-row
                     if (checkFour(initial_state, num_rows, num_cols) == 1) {
-                        board[i][j] == 'o';
+                        board[i][j] = 'o';
                         made_progress = 1;
                         forced_move = 1;
                     }
@@ -142,18 +148,13 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
             }
         }
     }
-
-    //After heuristic, check if there are empty cells
-    for (int i = 0; i < num_rows; i++) {
-        for (int j = 0; i < num_cols; j++) {
-            if (board[i][j] == 0) {
-                //If there are still empty cells but no forced moves are possible
-                if (forced_move == 0) {
-                    return INITIAL_BOARD_NO_SOLUTION;
-                }
-                return HEURISTICS_FAILED; //Some empty cells remain but heuristic failed
-            }
+    // After applying the heuristic, check if there are still empty cells
+    if (isEmpty == 1) {
+        // If there are empty cells but no forced moves are possible, return NO_SOLUTION
+        if (forced_move == 0) {
+            return INITIAL_BOARD_NO_SOLUTION;
         }
+        return HEURISTICS_FAILED; // Some empty cells remain but heuristic failed
     }
     
     //If no invalid characters, no four-in-a-row, and no empty spots
@@ -164,6 +165,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
-
+    (void) final_state;
+    (void) num_rows;
+    (void) num_cols;
     return 0;
 }
