@@ -24,7 +24,7 @@
 extern char board[MAX_ROWS][MAX_COLS];
 
 void initialize_board(const char *initial_state, int num_rows, int num_cols);
-int checkFour(const char *initial_state, int num_rows, int num_cols);
+int checkFour(int num_rows, int num_cols);
 int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int *num_o);
 char* generate_medium(const char *final_state, int num_rows, int num_cols);
 

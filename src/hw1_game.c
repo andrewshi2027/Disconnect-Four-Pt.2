@@ -96,16 +96,16 @@ int main(int argc, char **argv) {
         
         
         //Checks if there is a 4-in-a-row
-        if (checkFour(argv[3], num_rows, num_columns) == 1) 
+        if (checkFour(num_rows, num_columns) == 1) 
         {
             printf("Invalid choice. You have created 4-in-a-row.\n");
-            //board[row][column] = '-';
+            board[row][column] = '-';
             continue;
         }  
         
         //Checks if winning board
         if (isBoardFull(num_rows, num_columns) == 1) {
-            if (checkFour(argv[3], num_rows, num_columns) == 0) 
+            if (checkFour(num_rows, num_columns) == 0) 
             {
                 printf("Congratulations, you have filled the board with no 4-in-a-rows!\n");
                 printBoard(num_rows, num_columns);

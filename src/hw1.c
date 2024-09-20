@@ -11,14 +11,12 @@ Hint: Consider adding a global variable to store a string large enough to store 
 */
 
  void initialize_board(const char *initial_state, int num_rows, int num_cols) {
-   //Convert String to Array
-    //int counter=0; 
+    //Convert String to Array
     for (int i=0; i<num_rows; i++)
     {
         for (int j=0; j<num_cols; j++)
         {
             board[i][j] = initial_state[num_cols * i + j];
-            //counter++; 
         }
     }
  }
@@ -29,9 +27,9 @@ int helper (char a, char b, char c, char d) {
 }
 
 //Checks if there are any 4-in-a-rows in the board
-int checkFour(const char *initial_state, int num_rows, int num_cols) {
+int checkFour(int num_rows, int num_cols) {
     //Initialize Board
-    initialize_board(initial_state, num_rows, num_cols);
+    //initialize_board(initial_state, num_rows, num_cols);
 
     //Check horizontal 4 in a row
     for (int i = 0; i < num_rows; i++) {
@@ -107,7 +105,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     }
 
     //FOUND_SOLUTION
-    if (checkFour(initial_state, num_rows, num_cols) == 0) {
+    if (checkFour(num_rows, num_cols) == 0) {
         return INITIAL_BOARD_FOUR_IN_A_ROW;
     }
 
@@ -123,7 +121,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                     //x is placed
                     board[i][j] = 'x';
                     //If the x creates a 4-in-a-row
-                    if (checkFour(initial_state, num_rows, num_cols) == 1) {
+                    if (checkFour(num_rows, num_cols) == 1) {
                         board[i][j] = 'o';
                         made_progress = 1;
                         forced_move = 1;
@@ -132,7 +130,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                         //o is placed
                         board[i][j] = 'o';
                         //if the o creates a 4-in-a-row
-                        if (checkFour(initial_state, num_rows, num_cols) == 1) {
+                        if (checkFour(num_rows, num_cols) == 1) {
                             board[i][j] = 'x';
                             made_progress = 1;
                             forced_move = 1;
