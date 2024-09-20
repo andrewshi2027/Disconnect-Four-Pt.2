@@ -161,5 +161,23 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
-    return 0;
+    char *medium_board = (char *)malloc((num_rows * num_cols + 1) * sizeof(char));
+    strcpy(medium_board, final_state);
+
+    int num_x, num_o;
+
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            if (medium_board[num_cols * i + j] != '-') {
+                char temp = medium_board[num_cols * i + j];
+                medium_board[num_cols * i + j] = '-';
+
+                if (solve(medium_board, num_rows, num_cols, &num_x, &num_o) != FOUND_SOLUTION) {
+                    medium_board[num_cols * i + j] = temp;
+                }
+            }
+        }
+    }
+    medium_board[num_rows * num_cols] = '\0';
+    return medium_board;;
 }
