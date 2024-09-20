@@ -161,8 +161,5 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
-    (void) final_state;
-    (void) num_rows;
-    (void) num_cols;
     return 0;
 }
