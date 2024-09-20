@@ -25,7 +25,7 @@ Hint: Consider adding a global variable to store a string large enough to store 
 
 //Helper method for checkFour()
 int helper (char a, char b, char c, char d) {
-    return (a == b && b == c && c == d && a != '-');
+    return (a == b && b == c && c == d && a != '-'); //4-in-a-row
 }
 
 //Checks if there are any 4-in-a-rows in the board
@@ -35,7 +35,7 @@ int checkFour(const char *initial_state, int num_rows, int num_cols) {
 
     //Check horizontal 4 in a row
     for (int i = 0; i < num_rows; i++) {
-        for (int j = 0; i < num_cols - 4; j++) {
+        for (int j = 0; j < num_cols - 3; j++) {
             if (helper(board[i][j], board[i][j+1], board[i][j+2], board[i][j+3]) == 1) {
                 return 1; 
             }
@@ -43,8 +43,8 @@ int checkFour(const char *initial_state, int num_rows, int num_cols) {
     }
 
     //Check vertical 4 in a row
-    for (int i = 0; i < num_rows - 4; i++) {
-        for (int j = 0; i < num_cols; j++) {
+    for (int i = 0; i < num_rows - 3; i++) {
+        for (int j = 0; j < num_cols; j++) {
             if (helper(board[i][j], board[i+1][j], board[i+2][j], board[i+3][j]) == 1) {
                 return 1;
             }
@@ -52,8 +52,8 @@ int checkFour(const char *initial_state, int num_rows, int num_cols) {
     }
 
     //Check diagonal 4 in a row (top-left to bottom-right)
-    for (int i = 0; i < num_rows - 4; i++) {
-        for (int j = 0; i < num_cols - 4; j++) {
+    for (int i = 0; i < num_rows - 3; i++) {
+        for (int j = 0; j < num_cols - 3; j++) {
             if (helper(board[i][j], board[i+1][j+1], board[i+2][j+2], board[i+3][j+3]) == 1) {
                 return 1;
             }
@@ -61,7 +61,7 @@ int checkFour(const char *initial_state, int num_rows, int num_cols) {
     }
     //Check diagonal 4 in a row (bottom-left to top-right)
     for (int i = 3; i < num_rows; i++) { //Start at row 3 to avoid out of bounds
-        for (int j = 0; i < num_cols - 4; j++) {
+        for (int j = 0; j < num_cols - 3; j++) {
             if (helper(board[i][j], board[i-1][j+1], board[i-2][j+2], board[i-3][j+3]) == 1) {
                 return 1;
             }
