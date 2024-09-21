@@ -110,10 +110,10 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     //Heuristics: For each empty cell, check if placing an 'x' or 'o' creates a forced move
     int heuristic_solved = 0;
-    int forced_x = 0;
-    int forced_o = 0;
     while (1) {
         heuristic_solved = 0;
+        // int forced_x = 0;
+        // int forced_o = 0;
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
                 if (board[i][j] == '-') 
@@ -124,9 +124,15 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                     if (checkFour(num_rows, num_cols) == 1) 
                     {
                         board[i][j] = 'o';
-                        count_o++;
-                        forced_o = 1;
+                        if(checkFour(num_rows, num_cols) == 1){
+                            return INITIAL_BOARD_NO_SOLUTION; //-3
+                        }
                     }
+                    
+
+                    // if (forced_x == 1 && forced_o == 1) {
+                    //     return INITIAL_BOARD_NO_SOLUTION; //-3
+                    // }
                     else 
                     {
                         //o is placed
@@ -136,7 +142,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                         {
                             board[i][j] = 'x';
                             count_x++;
-                            forced_x = 1;
+                            // forced_x = 1;
                         }
                         else 
                         {
@@ -144,9 +150,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                             board[i][j] = '-';
                         }
                     }
-                    if (forced_x == 1 && forced_o == 1) {
-                        return INITIAL_BOARD_NO_SOLUTION; //-3
-                    }
+                    
                 }
             }
         }
