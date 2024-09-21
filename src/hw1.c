@@ -109,29 +109,33 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     }
 
     //Heuristics: For each empty cell, check if placing an 'x' or 'o' creates a forced move
-    int forced_move = 1; //Tracks if a forced move is made during the heuristic
+    int heuristic_solved = 1; //Tracks if a forced move is made during the heuristic
 
-    while (forced_move == 1) {
-        forced_move = 0;
+    while (heuristic_solved == 1) {
+        // heuristic_solved = 0;
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
                 if (board[i][j] == '-') {
-                    //x is placed
+                    //Place x
                     board[i][j] = 'x';
-                    //If the x creates a 4-in-a-row
+                    //If x creates a 4-in-a-row
                     if (checkFour(num_rows, num_cols) == 1) {
                         board[i][j] = 'o';
                         count_o++;
-                        forced_move = 1;
+                        if (checkFour(num_rows, num_cols) == 1) {
+                            return INITIAL_BOARD_NO_SOLUTION; //-3
+                        }
+                        heuristic_solved = 0;
                     }
-                    else {
-                        //o is placed
+                    else
+                    {
+                        //Place o
                         board[i][j] = 'o';
-                        //if the o creates a 4-in-a-row
+                        //If o creates a 4-in-a-row
                         if (checkFour(num_rows, num_cols) == 1) {
                             board[i][j] = 'x';
                             count_x++;
-                            forced_move = 1;
+                            heuristic_solved = 0;
                         }
                         else {
                             //Reset the cell if no forced move
@@ -141,10 +145,10 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                 }
             }
         }
-    }
 
-    if (forced_move == 1) {
-        return INITIAL_BOARD_NO_SOLUTION; //-3
+        if (heuristic_solved == 0) {
+            break;
+        }
     }
 
     for (int i = 0; i < num_rows; i++) {
