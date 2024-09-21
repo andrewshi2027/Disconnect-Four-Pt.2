@@ -105,7 +105,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     }
 
     //FOUND_SOLUTION
-    if (checkFour(num_rows, num_cols) == 0) {
+    if (checkFour(num_rows, num_cols) == 1) {
         return INITIAL_BOARD_FOUR_IN_A_ROW;
     }
 
@@ -113,7 +113,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     int made_progress = 1; //Tracks if any forced moves are made
     int forced_move = 0; //Tracks if a forced move is made during the heuristic
 
-    while (made_progress == 0) {
+    while (made_progress == 1) {
         made_progress = 0;
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
