@@ -109,54 +109,42 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     }
 
     //Heuristics: For each empty cell, check if placing an 'x' or 'o' creates a forced move
-    int heuristic_solved = 0;
-    while (1) {
-        heuristic_solved = 0;
-        // int forced_x = 0;
-        // int forced_o = 0;
+    int forced_move = 1; //Tracks if a forced move is made during the heuristic
+
+    while (forced_move == 1) {
+        forced_move = 0;
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
-                if (board[i][j] == '-') 
-                {
+                if (board[i][j] == '-') {
                     //x is placed
                     board[i][j] = 'x';
                     //If the x creates a 4-in-a-row
-                    if (checkFour(num_rows, num_cols) == 1) 
-                    {
+                    if (checkFour(num_rows, num_cols) == 1) {
                         board[i][j] = 'o';
-                        if(checkFour(num_rows, num_cols) == 1){
-                            return INITIAL_BOARD_NO_SOLUTION; //-3
-                        }
+                        count_o++;
+                        forced_move = 1;
                     }
-                    
-
-                    // if (forced_x == 1 && forced_o == 1) {
-                    //     return INITIAL_BOARD_NO_SOLUTION; //-3
-                    // }
-                    else 
-                    {
+                    else {
                         //o is placed
                         board[i][j] = 'o';
-                        //If the o creates a 4-in-a-row
-                        if (checkFour(num_rows, num_cols) == 1) 
-                        {
+                        //if the o creates a 4-in-a-row
+                        if (checkFour(num_rows, num_cols) == 1) {
                             board[i][j] = 'x';
                             count_x++;
-                            // forced_x = 1;
+                            forced_move = 1;
                         }
-                        else 
-                        {
+                        else {
                             //Reset the cell if no forced move
                             board[i][j] = '-';
                         }
                     }
-                    
                 }
             }
         }
-        if (heuristic_solved == 0) {
-            break;
-        }
+    }
+
+    if (forced_move == 1) {
+        return INITIAL_BOARD_NO_SOLUTION; //-3
     }
 
     for (int i = 0; i < num_rows; i++) {
