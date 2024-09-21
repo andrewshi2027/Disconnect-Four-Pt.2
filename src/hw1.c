@@ -4,7 +4,7 @@
 #include <assert.h>
 
 #include "hw1.h"
-
+#include <string.h>
 
 char board[MAX_ROWS][MAX_COLS] = {0};
 
@@ -179,7 +179,6 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
     medium_board[num_rows * num_cols] = '\0';
     
     return medium_board;
-    //return 0;
 }
 
 
