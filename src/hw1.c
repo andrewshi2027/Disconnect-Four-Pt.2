@@ -77,7 +77,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     int count_x = 0; //# of x's
     int count_o = 0; //# of o's
     //int isEmpty = 0; //Track if there are any empty spots
-    int invalid_char = 0; //Track if there are any invalid chars
+    //int invalid_char = 0; //Track if there are any invalid chars
 
     //Initialize Board
     initialize_board(initial_state, num_rows, num_cols);
