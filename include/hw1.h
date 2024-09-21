@@ -21,7 +21,7 @@
 #define MAX_ROWS 20
 #define MAX_COLS 20
 
-extern char board[MAX_ROWS][MAX_COLS];
+
 
 void initialize_board(const char *initial_state, int num_rows, int num_cols);
 int checkFour(int num_rows, int num_cols);

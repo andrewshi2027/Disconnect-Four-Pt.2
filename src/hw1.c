@@ -5,7 +5,9 @@
 
 #include "hw1.h"
 
+
 char board[MAX_ROWS][MAX_COLS] = {0};
+
 /*
 Hint: Consider adding a global variable to store a string large enough to store a board.
 */

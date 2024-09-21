@@ -3,6 +3,7 @@
 #include <assert.h>
 
 #include "hw1.h"
+extern char board[MAX_ROWS][MAX_COLS];
 
 //Checks if the board is full
 int isBoardFull(int num_rows, int num_cols) {
