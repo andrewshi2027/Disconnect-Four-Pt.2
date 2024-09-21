@@ -93,14 +93,9 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                 count_o++;
             }
             else if (current != 'x' && current != 'o' && current != '-') {
-                invalid_char = 1; //has invalid chars
+                return INITIAL_BOARD_INVALID_CHARACTERS; //-2
             }
         }
-    }
-
-    //INITIAL_BOARD_INVALID_CHARACTERS
-    if (invalid_char == 1) {
-        return INITIAL_BOARD_INVALID_CHARACTERS; //-2
     }
 
     //INITIAL_BOARD_FOUR_IN_A_ROW
@@ -109,10 +104,8 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     }
 
     //Heuristics: For each empty cell, check if placing an 'x' or 'o' creates a forced move
-    int heuristic_solved = 1; //Tracks if a forced move is made during the heuristic
-
-    while (heuristic_solved == 1) {
-        // heuristic_solved = 0;
+    while (1) {
+        int heuristic_solved = 0;
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
                 if (board[i][j] == '-') {
@@ -122,20 +115,17 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                     if (checkFour(num_rows, num_cols) == 1) {
                         board[i][j] = 'o';
                         count_o++;
-                        if (checkFour(num_rows, num_cols) == 1) {
-                            return INITIAL_BOARD_NO_SOLUTION; //-3
-                        }
-                        heuristic_solved = 0;
+                        heuristic_solved=1;
+
                     }
-                    else
-                    {
+                    else {
                         //Place o
                         board[i][j] = 'o';
                         //If o creates a 4-in-a-row
                         if (checkFour(num_rows, num_cols) == 1) {
                             board[i][j] = 'x';
                             count_x++;
-                            heuristic_solved = 0;
+                            heuristic_solved=1;
                         }
                         else {
                             //Reset the cell if no forced move
