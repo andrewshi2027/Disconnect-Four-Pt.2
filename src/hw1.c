@@ -76,7 +76,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     //Variables
     int count_x = 0; //# of x's
     int count_o = 0; //# of o's
-    int isEmpty = 0; //Track if there are any empty spots
+    //int isEmpty = 0; //Track if there are any empty spots
     int invalid_char = 0; //Track if there are any invalid chars
 
     //Initialize Board
@@ -92,10 +92,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
             else if (current == 'o') {
                 count_o++;
             }
-            else if (current == '-') {
-                isEmpty = 1; //has empty cells
-            }
-            else {
+            else if (current != 'x' && current != 'o' && current != '-') {
                 invalid_char = 1; //has invalid chars
             }
         }
@@ -147,12 +144,16 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     }
 
     if (forced_move == 1) {
-        return INITIAL_BOARD_NO_SOLUTION;
+        return INITIAL_BOARD_NO_SOLUTION; //-3
     }
 
-    if (isEmpty == 0) {
-        return HEURISTICS_FAILED;
-    }
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            if(board[i][j] == '-') {
+                return HEURISTICS_FAILED; //0
+            }
+        }
+    }    
 
     *num_x = count_x;
     *num_o = count_o;
