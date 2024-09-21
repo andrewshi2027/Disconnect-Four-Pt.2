@@ -179,5 +179,6 @@ char* generate_medium(const char *final_state, int num_rows, int num_cols) {
         }
     }
     medium_board[num_rows * num_cols] = '\0';
+    
     return medium_board;;
 }
