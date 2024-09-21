@@ -76,8 +76,6 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
     //Variables
     int count_x = 0; //# of x's
     int count_o = 0; //# of o's
-    //int isEmpty = 0; //Track if there are any empty spots
-    //int invalid_char = 0; //Track if there are any invalid chars
 
     //Initialize Board
     initialize_board(initial_state, num_rows, num_cols);
@@ -115,7 +113,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                     if (checkFour(num_rows, num_cols) == 1) {
                         board[i][j] = 'o';
                         count_o++;
-                        heuristic_solved=1;
+                        heuristic_solved = 1;
                         if (checkFour(num_rows, num_cols) == 1) {
                             return INITIAL_BOARD_NO_SOLUTION; //-3
                         }
@@ -128,7 +126,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                         if (checkFour(num_rows, num_cols) == 1) {
                             board[i][j] = 'x';
                             count_x++;
-                            heuristic_solved=1;
+                            heuristic_solved = 1;
                         }
                         else {
                             //Reset the cell if no forced move
@@ -158,30 +156,30 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
-    (void) final_state;
-    (void) num_rows;
-    (void) num_cols;
-    // char *medium_board = (char *)malloc((num_rows * num_cols + 1) * sizeof(char));
-    // strcpy(medium_board, final_state);
+    // (void) final_state;
+    // (void) num_rows;
+    // (void) num_cols;
+    char *medium_board = (char *)malloc((num_rows * num_cols + 1) * sizeof(char));
+    strcpy(medium_board, final_state);
 
-    // int num_x, num_o;
+    int num_x, num_o;
 
-    // for (int i = 0; i < num_rows; i++) {
-    //     for (int j = 0; j < num_cols; j++) {
-    //         if (medium_board[num_cols * i + j] != '-') {
-    //             char temp = medium_board[num_cols * i + j];
-    //             medium_board[num_cols * i + j] = '-';
+    for (int i = 0; i < num_rows; i++) {
+        for (int j = 0; j < num_cols; j++) {
+            if (medium_board[num_cols * i + j] != '-') {
+                char temp = medium_board[num_cols * i + j];
+                medium_board[num_cols * i + j] = '-';
 
-    //             if (solve(medium_board, num_rows, num_cols, &num_x, &num_o) != FOUND_SOLUTION) {
-    //                 medium_board[num_cols * i + j] = temp;
-    //             }
-    //         }
-    //     }
-    // }
-    // medium_board[num_rows * num_cols] = '\0';
+                if (solve(medium_board, num_rows, num_cols, &num_x, &num_o) != FOUND_SOLUTION) {
+                    medium_board[num_cols * i + j] = temp;
+                }
+            }
+        }
+    }
+    medium_board[num_rows * num_cols] = '\0';
     
-    //return medium_board;
-    return 0;
+    return medium_board;
+    //return 0;
 }
 
 
