@@ -124,6 +124,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                     //If the x creates a 4-in-a-row
                     if (checkFour(num_rows, num_cols) == 1) {
                         board[i][j] = 'o';
+                        count_o++;
                         forced_move = 1;
                     }
                     else {
@@ -132,6 +133,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                         //if the o creates a 4-in-a-row
                         if (checkFour(num_rows, num_cols) == 1) {
                             board[i][j] = 'x';
+                            count_x++;
                             forced_move = 1;
                         }
                         else {
