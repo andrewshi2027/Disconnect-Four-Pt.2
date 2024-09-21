@@ -106,7 +106,7 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 
     //INITIAL_BOARD_FOUR_IN_A_ROW
     if (checkFour(num_rows, num_cols) == 1) {
-        return INITIAL_BOARD_FOUR_IN_A_ROW;
+        return 100;
     }
 
     //Heuristics: For each empty cell, check if placing an 'x' or 'o' creates a forced move
