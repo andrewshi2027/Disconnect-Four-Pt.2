@@ -91,30 +91,29 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                 count_o++;
             }
             else if (current == '-') {
-                isEmpty = 1; //has empty cells
+                isEmpty++; //has empty cells
             }
             else {
-                invalid_char = 1; //has invalid chars
+                invalid_char++; //has invalid chars
             }
         }
     }
 
     //INITIAL_BOARD_INVALID_CHARACTERS
-    if (invalid_char == 1) {
+    if (invalid_char > 0) {
         return INITIAL_BOARD_INVALID_CHARACTERS;
     }
 
-    //FOUND_SOLUTION
+    //INITIAL_BOARD_FOUR_IN_A_ROW
     if (checkFour(num_rows, num_cols) == 1) {
         return INITIAL_BOARD_FOUR_IN_A_ROW;
     }
 
     //Heuristics: For each empty cell, check if placing an 'x' or 'o' creates a forced move
-    int made_progress = 1; //Tracks if any forced moves are made
     int forced_move = 0; //Tracks if a forced move is made during the heuristic
 
-    while (made_progress == 1) {
-        made_progress = 0;
+    while (forced_move == 1) {
+        forced_move = 0;
         for (int i = 0; i < num_rows; i++) {
             for (int j = 0; j < num_cols; j++) {
                 if (board[i][j] == '-') {
@@ -123,7 +122,6 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                     //If the x creates a 4-in-a-row
                     if (checkFour(num_rows, num_cols) == 1) {
                         board[i][j] = 'o';
-                        made_progress = 1;
                         forced_move = 1;
                     }
                     else {
@@ -132,7 +130,6 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                         //if the o creates a 4-in-a-row
                         if (checkFour(num_rows, num_cols) == 1) {
                             board[i][j] = 'x';
-                            made_progress = 1;
                             forced_move = 1;
                         }
                         else {
@@ -145,19 +142,15 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
         }
     }
     // After applying the heuristic, check if there are still empty cells
-    if (isEmpty == 1) {
-        // If there are empty cells but no forced moves are possible, return NO_SOLUTION
-        if (forced_move == 0) {
-            return INITIAL_BOARD_NO_SOLUTION;
-        }
-        return HEURISTICS_FAILED; // Some empty cells remain but heuristic failed
+    if (isEmpty == 0) {
+        //If no invalid characters, no four-in-a-row, and no empty spots
+        *num_x = count_x;
+        *num_o = count_o;
+        return FOUND_SOLUTION;
     }
-    
-    //If no invalid characters, no four-in-a-row, and no empty spots
-    *num_x = count_x;
-    *num_o = count_o;
-
-    return FOUND_SOLUTION;
+    else {
+        return HEURISTICS_FAILED;
+    }
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
