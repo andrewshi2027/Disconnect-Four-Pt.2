@@ -7,7 +7,7 @@
 #include <string.h>
 
 char board[MAX_ROWS][MAX_COLS] = {0};
-
+char gen_board[401];
 /*
 Hint: Consider adding a global variable to store a string large enough to store a board.
 */
@@ -156,35 +156,23 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
 }
 
 char* generate_medium(const char *final_state, int num_rows, int num_cols) { 
-    char *medium_board = (char *)malloc((num_rows * num_cols + 1) * sizeof(char));
-    strcpy(medium_board, final_state);
+    // char *medium_board = (char *)malloc((MAX_ROWS * MAX_COLS + 1) * sizeof(char));
+    strcpy(gen_board, final_state);
 
     int num_x, num_o;
 
-    // for (int i = 0; i < num_rows; i++) {
-    //     for (int j = 0; j < num_cols; j++) {
-    //         if (medium_board[num_cols * i + j] != '-') {
-    //             char temp = medium_board[num_cols * i + j];
-    //             medium_board[num_cols * i + j] = '-';
-
-    //             if (solve(medium_board, num_rows, num_cols, &num_x, &num_o) != FOUND_SOLUTION) {
-    //                 medium_board[num_cols * i + j] = temp;
-    //             }
-    //         }
-    //     }
-    // }
     for (int i = 0; i < num_rows * num_cols; i++) {
-        if (medium_board[i] != '-') {
-            char temp = medium_board[i];
-            medium_board[i] = '-';
+        char temp = gen_board[i];
+        gen_board[i] = '-';
 
-            if (solve(medium_board, num_rows, num_cols, &num_x, &num_o) != FOUND_SOLUTION) {
-                medium_board[i] = temp;
-            }
+        if (solve(gen_board, num_rows, num_cols, &num_x, &num_o) == HEURISTICS_FAILED) {
+            gen_board[i] = temp;
         }
     }
+    gen_board[num_rows * num_cols] = '\0';
+    gen_board[400] = '\0';
     
-    return medium_board;
+    return gen_board;
 }
 
 
