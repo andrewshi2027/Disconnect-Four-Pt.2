@@ -116,6 +116,9 @@ int solve(const char *initial_state, int num_rows, int num_cols, int *num_x, int
                         board[i][j] = 'o';
                         count_o++;
                         heuristic_solved=1;
+                        if (checkFour(num_rows, num_cols) == 1) {
+                            return INITIAL_BOARD_NO_SOLUTION; //-3
+                        }
 
                     }
                     else {
